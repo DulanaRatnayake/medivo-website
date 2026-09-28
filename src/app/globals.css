@@ -1,26 +1,609 @@
 @import "tailwindcss";
 
+/* ============================================================
+   MEDIVO THEME TOKENS
+   Edit brand colors here — single source of truth for CSS.
+   Mirror of src/theme/colors.ts for use in CSS/Tailwind.
+   ============================================================ */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Brand Colors */
+  --color-bg: #E6F6FD;
+  --color-text: #011F44;
+  --color-primary: #02A9E7;
+  --color-secondary: #0BCEB7;
+  --color-accent: #04A9BC;
+  --color-deep: #036CAD;
+
+  /* Derived / Utility */
+  --color-bg-card: rgba(255, 255, 255, 0.7);
+  --color-bg-header: rgba(230, 246, 253, 0.92);
+  --color-border: rgba(2, 169, 231, 0.2);
+  --color-shadow: rgba(3, 108, 173, 0.12);
+
+  /* Typography */
+  --font-sans: var(--font-inter), system-ui, sans-serif;
+  --font-display: var(--font-jakarta), var(--font-inter), sans-serif;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-background: var(--color-bg);
+  --color-foreground: var(--color-text);
+  --font-sans: var(--font-sans);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+/* ============================================================
+   GLOBAL RESETS & BASE STYLES
+   ============================================================ */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-sans);
+  font-size: 16px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  /* clip (not hidden) so the sticky header keeps working */
+  overflow-x: clip;
+}
+
+/* ============================================================
+   TYPOGRAPHY
+   ============================================================ */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  line-height: 1.2;
+  color: var(--color-text);
+}
+
+a {
+  color: var(--color-primary);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+a:hover {
+  color: var(--color-deep);
+}
+
+/* ============================================================
+   REUSABLE UTILITY CLASSES
+   ============================================================ */
+
+/* Gradient text */
+.gradient-text {
+  background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Section container */
+.section-container {
+  max-width: 1200px;
+  margin-inline: auto;
+  padding-inline: 1.5rem;
+}
+
+/* Glass card */
+.glass-card {
+  background: var(--color-bg-card);
+  backdrop-filter: blur(12px);
+  border: 1px solid var(--color-border);
+  border-radius: 1.25rem;
+  box-shadow: 0 4px 24px var(--color-shadow);
+}
+
+/* Primary gradient button */
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.75rem 2rem;
+  background: linear-gradient(135deg, var(--color-primary), var(--color-deep));
+  color: #fff;
+  font-weight: 600;
+  font-size: 0.95rem;
+  border-radius: 2rem;
+  border: none;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, opacity 0.2s ease;
+  box-shadow: 0 4px 16px rgba(2, 169, 231, 0.35);
+}
+
+/* Same blue → teal gradient as .gradient-text headings */
+.btn-gradient {
+  background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+  box-shadow: 0 4px 16px rgba(11, 206, 183, 0.35);
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(2, 169, 231, 0.45);
+  opacity: 0.95;
+  color: #fff;
+}
+
+/* Outline button */
+.btn-outline {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.75rem 2rem;
+  background: transparent;
+  color: var(--color-primary);
+  font-weight: 600;
+  font-size: 0.95rem;
+  border-radius: 2rem;
+  border: 2px solid var(--color-primary);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-outline:hover {
+  background: var(--color-primary);
+  color: #fff;
+  transform: translateY(-2px);
+}
+
+/* Section title */
+.section-title {
+  font-size: clamp(1.75rem, 4vw, 2.75rem);
+  font-weight: 800;
+  margin-bottom: 1rem;
+}
+
+.section-subtitle {
+  font-size: clamp(1rem, 2vw, 1.2rem);
+  color: var(--color-text);
+  opacity: 0.7;
+  max-width: 600px;
+  margin-inline: auto;
+}
+
+/* Section spacing */
+.section-padding {
+  padding-block: 5rem;
+}
+
+/* Divider gradient */
+.divider {
+  height: 3px;
+  width: 5rem;
+  background: linear-gradient(90deg, var(--color-primary), var(--color-secondary));
+  border-radius: 2px;
+  margin-bottom: 1.5rem;
+}
+
+/* ============================================================
+   ANIMATIONS
+   ============================================================ */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes pulse-slow {
+  0%, 100% { opacity: 0.6; transform: scale(1); }
+  50%       { opacity: 1;   transform: scale(1.05); }
+}
+
+.animate-fade-in-up {
+  animation: fadeInUp 0.7s ease both;
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.7s ease both;
+}
+
+/* Stagger delays */
+.delay-100 { animation-delay: 0.1s; }
+.delay-200 { animation-delay: 0.2s; }
+.delay-300 { animation-delay: 0.3s; }
+.delay-400 { animation-delay: 0.4s; }
+.delay-500 { animation-delay: 0.5s; }
+
+/* ============================================================
+   SCROLLBAR STYLING
+   ============================================================ */
+/* Hidden everywhere — pages still scroll with wheel, touch and keyboard */
+html,
+body,
+* {
+  scrollbar-width: none; /* Firefox, modern Chrome/Edge */
+  -ms-overflow-style: none; /* legacy Edge */
+}
+::-webkit-scrollbar {
+  display: none; /* Safari, older Chrome */
+  width: 0;
+  height: 0;
+}
+
+/* ============================================================
+   CONTENT LAYOUT HELPERS
+   ============================================================ */
+.eyebrow {
+  display: inline-block;
+  padding: 0.3rem 1rem;
+  border-radius: 2rem;
+  background: rgba(2, 169, 231, 0.1);
+  border: 1px solid rgba(2, 169, 231, 0.3);
+  color: var(--color-primary);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+}
+
+.prose-text {
+  font-size: 1.05rem;
+  line-height: 1.85;
+  color: var(--color-text);
+  opacity: 0.78;
+}
+
+.prose-text + .prose-text {
+  margin-top: 1rem;
+}
+
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(260px, 100%), 1fr));
+  gap: 1.5rem;
+}
+
+.two-col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3.5rem;
+  align-items: center;
+}
+
+.feature-card {
+  padding: 1.75rem;
+  height: 100%;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.feature-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 32px var(--color-shadow);
+}
+
+.icon-badge {
+  width: 48px;
+  height: 48px;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.4rem;
+  margin-bottom: 1rem;
+  background: linear-gradient(135deg, rgba(2, 169, 231, 0.15), rgba(11, 206, 183, 0.2));
+  border: 1px solid rgba(2, 169, 231, 0.25);
+}
+
+.pill-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  list-style: none;
+}
+
+.pill {
+  padding: 0.45rem 1rem;
+  border-radius: 2rem;
+  background: rgba(255, 255, 255, 0.8);
+  border: 1px solid rgba(2, 169, 231, 0.3);
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--color-deep);
+}
+
+.form-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.form-field input,
+.form-field textarea,
+.form-field select {
+  font: inherit;
+  font-weight: 400;
+  padding: 0.75rem 1rem;
+  border-radius: 0.75rem;
+  border: 1px solid var(--color-border);
+  background: rgba(255, 255, 255, 0.9);
+  color: var(--color-text);
+  outline: none;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.form-field input:focus,
+.form-field textarea:focus,
+.form-field select:focus {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px rgba(2, 169, 231, 0.15);
+}
+
+.choice-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+}
+
+.choice-group label {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.5rem 1rem;
+  border-radius: 2rem;
+  border: 1px solid var(--color-border);
+  background: rgba(255, 255, 255, 0.8);
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.choice-group input {
+  accent-color: var(--color-primary);
+}
+
+.faq-item summary {
+  cursor: pointer;
+  list-style: none;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.05rem;
+}
+
+.faq-item summary::-webkit-details-marker {
+  display: none;
+}
+
+.faq-item summary::after {
+  content: "+";
+  font-size: 1.5rem;
+  color: var(--color-primary);
+  transition: transform 0.2s ease;
+  flex-shrink: 0;
+}
+
+.faq-item[open] summary::after {
+  transform: rotate(45deg);
+}
+
+@media (max-width: 768px) {
+  .two-col {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+  .section-padding {
+    padding-block: 3.5rem;
+  }
+}
+
+.footer-social:hover {
+  color: #fff !important;
+  background: var(--color-primary) !important;
+  border-color: var(--color-primary) !important;
+}
+
+/* Photo section overlay: brand navy on the text side, fading to reveal the photo */
+.story-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background:
+    linear-gradient(90deg,
+      rgba(1, 31, 68, 0.94) 0%,
+      rgba(1, 31, 68, 0.82) 35%,
+      rgba(3, 108, 173, 0.35) 65%,
+      rgba(3, 108, 173, 0.05) 100%),
+    linear-gradient(180deg, rgba(230, 246, 253, 0.12) 0%, transparent 20%);
+}
+
+@media (max-width: 1024px) {
+  .story-overlay {
+    background: linear-gradient(180deg,
+      rgba(1, 31, 68, 0.9) 0%,
+      rgba(1, 31, 68, 0.8) 60%,
+      rgba(1, 31, 68, 0.6) 100%);
+  }
+}
+
+@media (max-width: 480px) {
+  .step-emoji {
+    display: none;
+  }
+}
+
+/* ============================================================
+   SCROLL-DRIVEN VIDEO (src/components/ScrollVideo.tsx)
+   Section height = scroll distance + one pinned viewport.
+   ============================================================ */
+.scroll-video {
+  --sv-header: 72px;
+  --sv-stage-h: calc(100svh - var(--sv-header));
+  --sv-bg: #d5e6ed; /* matches the video's own backdrop */
+  position: relative;
+  height: calc(var(--sv-length, 300vh) + var(--sv-stage-h));
+  background: var(--sv-bg);
+}
+
+.scroll-video__stage {
+  position: sticky;
+  top: var(--sv-header);
+  height: var(--sv-stage-h);
+  overflow: hidden;
+  background: var(--sv-bg);
+}
+
+/* Soft fades into the neighbouring light sections */
+.scroll-video__stage::before,
+.scroll-video__stage::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 7vh;
+  z-index: 1;
+  pointer-events: none;
+}
+.scroll-video__stage::before {
+  top: 0;
+  background: linear-gradient(to bottom, var(--color-bg), transparent);
+}
+.scroll-video__stage::after {
+  bottom: 0;
+  background: linear-gradient(to top, var(--color-bg), transparent);
+}
+
+/* Landscape: fill the stage */
+.scroll-video__media {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 100%;
+  height: 100%;
+  max-width: none; /* override Tailwind preflight's video max-width */
+  transform: translate(-50%, -50%);
+  object-fit: cover;
+  pointer-events: none;
+}
+
+/* Ultra-wide: cover would crop the top of the exploded view, so letterbox
+   instead — the stage colour matches the video backdrop, so it's seamless. */
+@media (min-aspect-ratio: 21/10) {
+  .scroll-video__media {
+    object-fit: contain;
+  }
+}
+
+/* Portrait (phones, tablets upright): cover would crop the product's sides.
+   Keep the 16:9 frame, enlarge it past the edges only as far as the
+   centred product allows, and feather its top/bottom into the backdrop. */
+@media (max-aspect-ratio: 1/1) {
+  .scroll-video {
+    height: calc(var(--sv-length-mobile, 200vh) + var(--sv-stage-h));
+  }
+  .scroll-video__media {
+    width: 180%;
+    height: auto;
+    aspect-ratio: 16 / 9;
+    -webkit-mask-image: linear-gradient(to bottom, transparent, #000 14%, #000 86%, transparent);
+    mask-image: linear-gradient(to bottom, transparent, #000 14%, #000 86%, transparent);
+  }
+}
+
+.scroll-video--static {
+  height: auto;
+}
+.scroll-video--static .scroll-video__stage {
+  position: relative;
+  top: 0;
+  height: min(var(--sv-stage-h), 56.25vw);
+}
+
+.scroll-video__loader {
+  position: absolute;
+  right: 1.5rem;
+  top: 1.5rem;
+  z-index: 2;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  border: 3px solid rgba(2, 169, 231, 0.2);
+  border-top-color: var(--color-primary);
+  animation: sv-spin 0.9s linear infinite;
+}
+
+@keyframes sv-spin {
+  to { transform: rotate(360deg); }
+}
+
+.scroll-video__hint {
+  position: absolute;
+  left: 50%;
+  bottom: 2.25rem;
+  z-index: 2;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-deep);
+  pointer-events: none;
+  transition: opacity 0.2s linear;
+}
+
+.scroll-video__hint-arrow {
+  width: 10px;
+  height: 10px;
+  border-right: 2px solid currentColor;
+  border-bottom: 2px solid currentColor;
+  transform: rotate(45deg);
+  animation: sv-bounce 1.6s ease-in-out infinite;
+}
+
+@keyframes sv-bounce {
+  0%, 100% { translate: 0 0; }
+  50%      { translate: 0 5px; }
+}
+
+.scroll-video__progress {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 2;
+  height: 3px;
+  background: rgba(2, 169, 231, 0.15);
+}
+
+.scroll-video__progress-bar {
+  height: 100%;
+  background: linear-gradient(90deg, var(--color-primary), var(--color-secondary));
+  transform: scaleX(0);
+  transform-origin: left center;
+  will-change: transform;
 }
