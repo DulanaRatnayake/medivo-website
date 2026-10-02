@@ -80,11 +80,7 @@ export default function Header() {
             width={130}
             height={48}
             priority
-            style={{
-              height: 42,
-              width: "auto",
-              objectFit: "contain",
-            }}
+            className="header-logo"
           />
         </Link>
 

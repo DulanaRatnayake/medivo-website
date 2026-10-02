@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { PageHero, HighlightBand, PageNav } from "@/components/PageSections";
 
 export const metadata: Metadata = {
@@ -99,6 +100,27 @@ export default function HowItWorksPage() {
             </li>
           ))}
         </ol>
+
+        {/* Link to the full instructions */}
+        <div className="section-container" style={{ maxWidth: 760 }}>
+          <div className="glass-card manual-link">
+            <span className="icon-badge" style={{ margin: 0, flexShrink: 0 }} aria-hidden>
+              📘
+            </span>
+            <div style={{ flex: 1, minWidth: 0 }}>
+              <h2 style={{ fontSize: "1.2rem", marginBottom: "0.25rem" }}>
+                Need the full instructions?
+              </h2>
+              <p style={{ opacity: 0.75 }}>
+                The user manual explains how to set up, use, maintain and
+                safely store your Medivo.
+              </p>
+            </div>
+            <Link href="/user-manual" className="btn-primary btn-gradient">
+              View User Manual
+            </Link>
+          </div>
+        </div>
       </section>
 
       <HighlightBand

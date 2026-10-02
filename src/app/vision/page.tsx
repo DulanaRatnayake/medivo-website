@@ -96,7 +96,7 @@ export default function VisionPage() {
       <section className="section-padding" style={{ paddingTop: 0 }}>
         <div className="section-container">
           <SectionHeading title="Our Values" />
-          <div className="card-grid">
+          <div className="card-grid card-grid--3">
             {values.map((v) => (
               <FeatureCard key={v.title} icon={v.icon} title={v.title}>
                 {v.text}

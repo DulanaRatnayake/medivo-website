@@ -55,7 +55,7 @@ export default function ProblemPage() {
       />
 
       <section className="section-padding" style={{ paddingTop: 0 }}>
-        <div className="section-container card-grid">
+        <div className="section-container card-grid card-grid--3">
           {challenges.map((c) => (
             <FeatureCard key={c.title} icon={c.icon} title={c.title}>
               {c.text}

@@ -53,11 +53,11 @@ export default function IntroScreen() {
   return (
     <div
       aria-hidden="true"
+      className="intro-screen"
       style={{
         position: "fixed",
         inset: 0,
         zIndex: 9999,
-        background: "#ffffff",
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
@@ -69,21 +69,15 @@ export default function IntroScreen() {
         pointerEvents: phase === "fading" ? "none" : "all",
       }}
     >
-      {/* ── Fullscreen video ── */}
+      {/* ── Video: fills the screen on desktop, fits the width on phones/tablets
+          (sizing lives in globals.css) ── */}
       <video
         ref={videoRef}
         src="/logo-animation.mp4"
         muted
         playsInline
         preload="auto"
-        style={{
-          position: "absolute",
-          inset: 0,
-          width: "100%",
-          height: "100%",
-          objectFit: "cover",
-          background: "#ffffff",
-        }}
+        className="intro-video"
       />
 
       {/* ── Skip button ── */}

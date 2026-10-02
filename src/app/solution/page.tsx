@@ -28,7 +28,7 @@ export default function SolutionPage() {
       />
 
       <section className="section-padding" style={{ paddingTop: 0 }}>
-        <div className="section-container card-grid">
+        <div className="section-container card-grid card-grid--3">
           <FeatureCard icon="🗂️" title="Medication Organisation">
             Medivo provides 21 medication compartments, organised around a 7
             day medication schedule with three medication times per day:

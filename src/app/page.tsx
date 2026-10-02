@@ -56,10 +56,7 @@ export default function HomePage() {
               confirm doses and stay connected with caregivers.
             </p>
 
-            <div
-              className="animate-fade-in-up delay-300"
-              style={{ display: "flex", gap: "1rem", flexWrap: "wrap" }}
-            >
+            <div className="hero__actions animate-fade-in-up delay-300">
               <Link href="#explore" className="btn-primary btn-gradient">
                 Explore Medivo
               </Link>

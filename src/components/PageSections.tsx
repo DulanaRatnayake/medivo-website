@@ -15,7 +15,8 @@ export function PageHero({ eyebrow, title, intro, children }: PageHeroProps) {
       style={{
         position: "relative",
         overflow: "hidden",
-        padding: "5.5rem 1.5rem 4rem",
+        padding:
+          "clamp(1.5rem, 3.5vw, 2.25rem) 1.5rem clamp(2rem, 4vw, 3rem)",
         textAlign: "center",
       }}
     >
