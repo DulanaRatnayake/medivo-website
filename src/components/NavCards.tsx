@@ -13,27 +13,19 @@ const cards = [
   { label: "Vision & Mission", href: "/vision", icon: "🎯", color: "#04A9BC" },
   { label: "Preorder", href: "/preorder", icon: "🛒", color: "#02A9E7" },
   { label: "FAQ", href: "/faq", icon: "❓", color: "#036CAD" },
+  { label: "User Manual", href: "/user-manual", icon: "📘", color: "#04A9BC" },
   { label: "Contact Us", href: "/contact", icon: "📬", color: "#0BCEB7" },
 ];
 
 export default function NavCards() {
   return (
-    <div
-      style={{
-        display: "grid",
-        gridTemplateColumns: "repeat(auto-fill, minmax(min(220px, 100%), 1fr))",
-        gap: "1.25rem",
-      }}
-    >
+    <div className="nav-cards">
       {cards.map((card) => (
         <Link
           key={card.href}
           href={card.href}
+          className="nav-card"
           style={{
-            display: "flex",
-            alignItems: "center",
-            gap: "0.875rem",
-            padding: "1.1rem 1.25rem",
             borderRadius: "1rem",
             background: "rgba(255,255,255,0.6)",
             border: `1px solid ${card.color}22`,
@@ -60,17 +52,8 @@ export default function NavCards() {
           }}
         >
           <span
-            style={{
-              width: 36,
-              height: 36,
-              borderRadius: "10px",
-              background: `${card.color}18`,
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              fontSize: "1.1rem",
-              flexShrink: 0,
-            }}
+            className="nav-card__icon"
+            style={{ background: `${card.color}18` }}
           >
             {card.icon}
           </span>

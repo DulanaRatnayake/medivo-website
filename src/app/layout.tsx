@@ -1,9 +1,11 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
+import AnnouncementBar from "@/components/AnnouncementBar";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import IntroScreen from "@/components/IntroScreen";
+import { SITE_URL } from "@/lib/site";
 
 // Self-hosted (src/assets/fonts) so builds never depend on reaching Google Fonts.
 // Variable fonts: one file covers every weight used on the site.
@@ -24,6 +26,7 @@ const plusJakarta = localFont({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL(SITE_URL),
   title: {
     default: "Medivo — Because Every Dose Matters",
     template: "%s | Medivo",
@@ -62,6 +65,7 @@ export default function RootLayout({
       <body style={{ display: "flex", flexDirection: "column", minHeight: "100vh" }}>
         {/* Full-screen intro animation — plays once per session */}
         <IntroScreen />
+        <AnnouncementBar />
         <Header />
         <main style={{ flex: 1 }}>{children}</main>
         <Footer />

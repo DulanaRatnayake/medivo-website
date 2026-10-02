@@ -18,6 +18,7 @@ const navLinks = [
   { label: "Vision", href: "/vision" },
   { label: "Preorder", href: "/preorder" },
   { label: "FAQ", href: "/faq" },
+  { label: "User Manual", href: "/user-manual" },
   { label: "Contact", href: "/contact" },
 ];
 
@@ -137,7 +138,7 @@ export default function Header() {
 
         {/* CTA Button */}
         <div style={{ display: "flex", alignItems: "center", gap: "0.75rem" }}>
-          <Link href="/preorder" className="btn-primary" style={{ fontSize: "0.85rem", padding: "0.6rem 1.4rem" }}>
+          <Link href="/preorder" className="btn-primary header-cta">
             Preorder Now
           </Link>
 

@@ -3,12 +3,12 @@
 import Link from "next/link";
 import Image from "next/image";
 import { socialLinks, SocialIcon, externalProps } from "@/components/SocialIcons";
+import { legalLinks } from "@/lib/site";
 
 const footerSections = [
   {
     title: "Pages",
     links: [
-      { label: "Home", href: "/" },
       { label: "About Medivo", href: "/about" },
       { label: "The Problem", href: "/problem" },
       { label: "Our Solution", href: "/solution" },
@@ -29,8 +29,13 @@ const footerSections = [
     links: [
       { label: "Preorder", href: "/preorder" },
       { label: "FAQ", href: "/faq" },
+      { label: "User Manual", href: "/user-manual" },
       { label: "Contact Us", href: "/contact" },
     ],
+  },
+  {
+    title: "Legal",
+    links: legalLinks,
   },
 ];
 
@@ -58,16 +63,9 @@ export default function Footer() {
       </div>
 
       <div className="section-container" style={{ paddingBlock: "3.5rem" }}>
-        <div
-          style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(auto-fit, minmax(min(200px, 100%), 1fr))",
-            gap: "2.5rem",
-            marginBottom: "3rem",
-          }}
-        >
+        <div className="footer-grid">
           {/* Brand Column */}
-          <div style={{ gridColumn: "span 1" }}>
+          <div className="footer-brand">
             {/* Logo */}
             <div style={{ marginBottom: "1rem" }}>
               <Link href="/">
@@ -172,6 +170,7 @@ export default function Footer() {
 
         {/* Bottom Bar */}
         <div
+          className="footer-bottom"
           style={{
             borderTop: "1px solid rgba(255,255,255,0.12)",
             paddingTop: "1.5rem",
@@ -185,30 +184,31 @@ export default function Footer() {
           <p style={{ fontSize: "0.85rem", color: "rgba(255,255,255,0.45)" }}>
             © {new Date().getFullYear()} Medivo. All rights reserved.
           </p>
-          <div style={{ display: "flex", flexWrap: "wrap", gap: "0.75rem 1.5rem" }}>
-            {["Privacy Policy", "Terms of Service", "Cookie Policy"].map(
-              (item) => (
-                <a
-                  key={item}
-                  href="#"
-                  style={{
-                    fontSize: "0.82rem",
-                    color: "rgba(255,255,255,0.45)",
-                    textDecoration: "none",
-                    transition: "color 0.2s ease",
-                  }}
-                  onMouseEnter={(e) =>
-                    ((e.target as HTMLElement).style.color = "#02A9E7")
-                  }
-                  onMouseLeave={(e) =>
-                    ((e.target as HTMLElement).style.color =
-                      "rgba(255,255,255,0.45)")
-                  }
-                >
-                  {item}
-                </a>
-              )
-            )}
+          <div
+            className="footer-bottom-links"
+            style={{ display: "flex", flexWrap: "wrap", gap: "0.75rem 1.5rem" }}
+          >
+            {[...legalLinks, { label: "Sitemap", href: "/sitemap.xml" }].map((item) => (
+              <Link
+                key={item.href}
+                href={item.href}
+                style={{
+                  fontSize: "0.82rem",
+                  color: "rgba(255,255,255,0.45)",
+                  textDecoration: "none",
+                  transition: "color 0.2s ease",
+                }}
+                onMouseEnter={(e) =>
+                  ((e.target as HTMLElement).style.color = "#02A9E7")
+                }
+                onMouseLeave={(e) =>
+                  ((e.target as HTMLElement).style.color =
+                    "rgba(255,255,255,0.45)")
+                }
+              >
+                {item.label}
+              </Link>
+            ))}
           </div>
         </div>
       </div>

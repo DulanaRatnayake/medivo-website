@@ -136,6 +136,7 @@ export default function ProductPage() {
               }}
             >
               7 Days × 3 Medication Times ={" "}
+              <br />
               <span className="gradient-text">21 Compartments</span>
             </p>
             <p className="prose-text">Each day is organised into:</p>

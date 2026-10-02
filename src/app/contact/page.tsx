@@ -103,7 +103,7 @@ export default function ContactPage() {
         </div>
       </section>
 
-      <PageNav prev={{ label: "FAQ", href: "/faq" }} />
+      <PageNav prev={{ label: "User Manual", href: "/user-manual" }} />
     </>
   );
 }

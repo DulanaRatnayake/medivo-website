@@ -4,7 +4,7 @@ import Image from "next/image";
 import productImage from "@/assets/product.png";
 import backgroundImage from "@/assets/background.png";
 import NavCards from "@/components/NavCards";
-import ScrollVideo from "@/components/ScrollVideo";
+import ScrollSequence from "@/components/ScrollSequence";
 import { SectionHeading } from "@/components/PageSections";
 
 export const metadata: Metadata = {
@@ -19,14 +19,7 @@ export default function HomePage() {
       {/* ── Hero (photo background) ── */}
       <section
         id="hero"
-        style={{
-          minHeight: "calc(100vh - 72px)",
-          display: "flex",
-          alignItems: "center",
-          position: "relative",
-          overflow: "hidden",
-          padding: "6rem 0",
-        }}
+        className="hero"
       >
         <Image
           src={backgroundImage}
@@ -45,57 +38,19 @@ export default function HomePage() {
           style={{ position: "relative", zIndex: 1, width: "100%" }}
         >
           <div style={{ maxWidth: 600 }}>
-            <h1
-              className="animate-fade-in-up delay-100"
-              style={{
-                fontSize: "clamp(3rem, 7vw, 4.75rem)",
-                fontWeight: 900,
-                lineHeight: 1,
-                marginBottom: "1rem",
-                letterSpacing: "0.02em",
-              }}
-            >
+            <h1 className="hero__title animate-fade-in-up delay-100">
               <span className="gradient-text">MEDIVO</span>
             </h1>
-            <h1
-              className="animate-fade-in-up delay-100"
-              style={{
-                fontSize: "clamp(1rem, 3vw, 2.5rem)",
-                fontWeight: 900,
-                lineHeight: 1,
-                marginBottom: "1rem",
-                letterSpacing: "0.02em",
-              }}
-            >
+            <p className="hero__tagline animate-fade-in-up delay-100">
               <span className="gradient-text">Because Every Dose Matters.</span>
-            </h1>
+            </p>
 
-            <p
-              className="animate-fade-in-up delay-100"
-              style={{
-                fontFamily: "var(--font-display)",
-                fontSize: "clamp(1.3rem, 2.6vw, 1.7rem)",
-                fontWeight: 700,
-                lineHeight: 1.35,
-                marginBottom: "1.25rem",
-                color: "#fff",
-              }}
-            >
+            <p className="hero__subtitle animate-fade-in-up delay-100">
               Smart Medication Management for a Simpler, Safer and More
               Connected Routine.
             </p>
 
-            <p
-              className="animate-fade-in-up delay-200"
-              style={{
-                fontSize: "1.1rem",
-                lineHeight: 1.8,
-                color: "#fff",
-                opacity: 0.85,
-                maxWidth: "500px",
-                marginBottom: "2.5rem",
-              }}
-            >
+            <p className="hero__text animate-fade-in-up delay-200">
               Medivo is a smart medication management solution designed to help
               users organise their medications, receive timely reminders,
               confirm doses and stay connected with caregivers.
@@ -176,13 +131,13 @@ export default function HomePage() {
       </section>
 
       {/* ── Scroll-driven product animation ── */}
-      <ScrollVideo
-        src="/videos/medivo-scroll.mp4"
-        mobileSrc="/videos/medivo-scroll-mobile.mp4"
-        poster="/videos/medivo-scroll-poster.jpg"
+      <ScrollSequence
+        framesPath="/videos/medivo-scroll/desktop"
+        mobileFramesPath="/videos/medivo-scroll/mobile"
+        frameCount={120}
         reducedMotionImage="/videos/medivo-scroll-still.jpg"
-        scrollLength={300}
-        mobileScrollLength={200}
+        scrollLength={180}
+        mobileScrollLength={120}
         label="Medivo taken apart layer by layer: display lid, compartment cover, 21 medication compartments, LED indicators, circuit board and battery base."
       />
 

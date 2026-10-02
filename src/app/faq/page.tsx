@@ -101,7 +101,7 @@ export default function FaqPage() {
 
       <PageNav
         prev={{ label: "Preorder", href: "/preorder" }}
-        next={{ label: "Contact Us", href: "/contact" }}
+        next={{ label: "User Manual", href: "/user-manual" }}
       />
     </>
   );
